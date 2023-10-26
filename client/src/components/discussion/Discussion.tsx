@@ -17,7 +17,7 @@ import Messages from "../messages/Messages";
 
 import ScrollToBottom from "react-scroll-to-bottom";
 
-const socket = io("http://localhost:3100");
+const socket = io("https://trial-server3.onrender.com");
 
 const Discussion = () => {
   const [sport, setSport] = useState("");

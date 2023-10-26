@@ -36,7 +36,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("https://trail-server-7o2t.onrender.com/login", {
         s_id: id,
         password: password,
       });

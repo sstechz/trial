@@ -25,7 +25,7 @@ const Players = ({ sports }: PlayersProps) => {
     const fetchPlayers = async () => {
       try {
         const response = await axios.get<string[]>(
-          `http://localhost:5000/user/players/${sports}`
+          `https://trail-server-7o2t.onrender.com/user/players/${sports}`
         );
 
         setPlayers(response.data);
@@ -55,7 +55,7 @@ const Players = ({ sports }: PlayersProps) => {
 
         const playerDpPromises = players.map(async (player) => {
           const response = await axios.get(
-            `http://localhost:5100/dp/${player}`
+            `https://trial-server2.onrender.com/dp/${player}`
           );
           return response.data.dp;
         });
