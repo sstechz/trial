@@ -27,7 +27,7 @@ const Home = () => {
       if (token !== "") {
         try {
           const response = await axios.get(
-            `http://localhost:5000/user/registered/${s_id}`
+            `https://trail-server-7o2t.onrender.com/user/registered/${s_id}`
           );
 
           if (response.status === 200) {

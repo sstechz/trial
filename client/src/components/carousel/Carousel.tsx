@@ -34,7 +34,7 @@ const Carousel = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/sport");
+        const response = await axios.get("https://trail-server-7o2t.onrender.com/sport");
         const data = response.data;
         // console.log(data.sports);
         setSports(data.sports);

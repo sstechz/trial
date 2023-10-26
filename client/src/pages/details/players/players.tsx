@@ -48,7 +48,7 @@ const Players = ({ sports }: PlayersProps) => {
       try {
         const playerDataPromises = players.map(async (player) => {
           const response = await axios.get(
-            `http://localhost:5000/user/players/banner/${player}`
+            `https://trail-server-7o2t.onrender.com/user/players/banner/${player}`
           );
           return response.data;
         });

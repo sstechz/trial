@@ -67,7 +67,7 @@ const DetailsBanner = ({ sports }: DetailsBannerProps) => {
     const fetchdata = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/sport/${sports}`
+          `https://trail-server-7o2t.onrender.com/sport/${sports}`
         );
 
         const data = response.data;
