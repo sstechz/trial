@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://glistening-wisp-962ec9.netlify.app/",
+    origin: "https://653a20660211586cb1751c0b--quiet-tartufo-935f26.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
