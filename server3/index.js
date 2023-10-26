@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://trial-exdz.onrender.com",
+    origin: "https://653a167f86fe846c32bf6ffe--transcendent-toffee-825eb6.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
