@@ -1,0 +1,87 @@
+@import "../../../mixins.scss";
+
+.testimonials {
+    position: relative;
+    margin-bottom: 70px;
+    .testimonialTitle{
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .testimonialContainer {
+        display: flex;
+        overflow-x: hidden;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        @include md {
+            flex-direction: row;
+        }
+        .testimonial {
+            display: flex;
+            background-color: black;
+            border: 3px solid var(--pink3);
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px 1px var(--pink3);
+            width: 100%;
+            margin: 1% 1%;
+            justify-content: space-evenly;
+            padding: 10px 10px;
+            .left {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40%;
+                .vline {
+                    display: flex;
+                    align-items: center;
+                    background-color: var(--pink);
+                    width: 1.5px;
+                    height: 90%;
+                    .vlineImg {
+                        height: 100px;
+                        width: 100px;
+                        background-color: var(--pink);
+                        border-radius: 50%;
+                        border: 3px solid var(--pink);
+                        position: absolute;
+                        margin-left: -50px;
+                        overflow: hidden;
+                    }
+                }
+            }
+            .right {
+                background-color: orange;
+                width: 60%;
+                padding: 50px 10px;
+                display: flex;
+                flex-direction: column;
+                .title {
+                    width: 100%;
+                    font-size: 18px;
+                    font-weight: bold;
+                    
+                }
+                .feedback {
+                    font-size: 15px;
+                    font-style: italic;
+                    margin-top: 15px;
+                }
+                .details {
+                    margin-top: 15px;
+                    .name {
+                        font-weight: bold;
+                    }
+                    .designation {
+                        font-size: 12px;
+                    }
+                    .stars{
+                        display: flex;
+                        gap: 5px;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

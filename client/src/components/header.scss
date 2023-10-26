@@ -1,0 +1,106 @@
+@import "../mixins.scss";
+
+.header {
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease 0.5s;
+  z-index: 2;
+  &.top {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+  }
+  &.show {
+    background-color: var(--black3);
+  }
+  &.hide {
+    transform: translateY(-60px);
+  }
+  .menuItems {
+    // display = none when small
+    // display = flex when >= md
+    list-style-type: none;
+    display: none;
+    align-items: center;
+    @include md {
+      display: flex;
+    }
+    .menuItem {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      margin: 0 15px;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--blue);
+      }
+    }
+    .user {
+      color: var(--pink);
+      font-size: 21px;
+    }
+  }
+
+  .mobileMenuItems {
+    // display = flex when small
+    // display = none when >= md
+    width: 96%;
+    justify-content: right;
+    display: flex;
+    @include md {
+      display: none;
+    }
+    svg {
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  &.mobileView {
+    background: var(--black3);
+    .menuItems {
+      display: flex;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      // box-shadow: 5px 3px 10px var(--pink);
+      animation: mobileMenu 0.3s ease forwards;
+      .menuItem {
+        font-size: 15px;
+        padding: 12px 20px;
+        background: var(--black3);
+        margin-top: 10px;
+        width: 80%;
+        height: 50px;
+        border-top: 1px solid var(--blue);
+        border-bottom: 1px solid var(--blue);
+        box-shadow: 1px 1px 10px var(--pink);
+        // border-radius: 100px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@keyframes mobileMenu {
+  0% {
+    transform: translateY(-130%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
