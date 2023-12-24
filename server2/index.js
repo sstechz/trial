@@ -4,6 +4,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectDB from "./mongodb/connect.js";
 import users from "./mongodb/models/user.js";
+import badmintonChats from "./mongodb/models/chat/badmintonChat.js";
+import cricketChats from "./mongodb/models/chat/cricketChat.js";
+import footballChats from "./mongodb/models/chat/footballChat.js";
+import basketballChats from "./mongodb/models/chat/basketballChat.js";
+import tabletennisChats from "./mongodb/models/chat/tabletennisChat.js";
 
 dotenv.config();
 
@@ -21,32 +26,130 @@ app.get("/", (req, res) => {
   res.send({ message: "Hello World" });
 });
 
-// app.post("/uploads", async (req, res) => {
-//   const { myFile } = req.body;
+// --------------------------------------------------
 
-//   const form = new users({
-//     myFile: myFile,
-//   });
+app.get("/getDiscussions/:sport", async (req, res) => {
+  const sport = req.params.sport;
 
-//   // const client = new MongoClient(process.env.MONGODB_URL, {
-//   //   useNewUrlParser: true,
-//   //   useUnifiedTopology: true,
-//   // });
+  try {
+    let chatModel;
 
-//   try {
-//     // await client.connectDB();
+    switch (sport) {
+      case "Basketball":
+        chatModel = basketballChats;
+        break;
+      case "Table_Tennis":
+        chatModel = tabletennisChats;
+        break;
+      case "Football":
+        chatModel = footballChats;
+        break;
+      case "Cricket":
+        chatModel = cricketChats;
+        break;
+      case "Badminton":
+        chatModel = badmintonChats;
+        break;
+      default:
+        throw new Error("Invalid sport name");
+    }
 
-//     // const newImage = await users.create({ myFile });
+    const chats = await chatModel
+      .find({})
+      .select("-_id author message time")
+      .lean();
 
-//     // const newImage = new users({ myFile: myFile });
+    if (chats.length > 0) {
+      // Add the additional 'room' field to each chat
+      const chatsWithRoom = chats.map(({ ...chat }) => ({
+        ...chat,
+        room: sport,
+      }));
 
-//     form.save({ timeout: 30000 });
-//     console.log("Saved to DB");
-//     res.status(201).json({ message: "New image uploaded...!" });
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+      // console.log(chatsWithRoom);
+      res.json({ chat: chatsWithRoom });
+    } else {
+      res.json({ chat: [] });
+    }
+  } catch (error) {
+    console.error("Error retrieving chats:", error);
+    throw error;
+  }
+});
+
+// ---------------------------------------------------
+
+app.post("/discussions", async (req, res) => {
+  const { author, message, room, time } = req.body;
+  const sport = room;
+
+  if (sport === "Basketball") {
+    const newBasketBallChat = new basketballChats({
+      author: author,
+      message: message,
+      time: time,
+    });
+
+    try {
+      await newBasketBallChat.save();
+      res.status(201).json({ message: "BasketBallChat saved in MongoDB!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving chats in MongoDB!" });
+    }
+  } else if (sport === "Table_Tennis") {
+    const newTableTennisChat = new tabletennisChats({
+      author: author,
+      message: message,
+      time: time,
+    });
+
+    try {
+      await newTableTennisChat.save();
+      res.status(201).json({ message: "TableTennisChat saved in MongoDB!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving chats in MongoDB!" });
+    }
+  } else if (sport === "Football") {
+    const newFootballChat = new footballChats({
+      author: author,
+      message: message,
+      time: time,
+    });
+
+    try {
+      await newFootballChat.save();
+      res.status(201).json({ message: "FootballChat saved in MongoDB!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving chats in MongoDB!" });
+    }
+  } else if (sport === "Cricket") {
+    const newCricketChat = new cricketChats({
+      author: author,
+      message: message,
+      time: time,
+    });
+
+    try {
+      await newCricketChat.save();
+      res.status(201).json({ message: "CricketChat saved in MongoDB!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving chats in MongoDB!" });
+    }
+  } else if (sport === "Badminton") {
+    const newBadmintonChat = new badmintonChats({
+      author: author,
+      message: message,
+      time: time,
+    });
+
+    try {
+      await newBadmintonChat.save();
+      res.status(201).json({ message: "BadmintonChat saved in MongoDB!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error saving chats in MongoDB!" });
+    }
+  }
+});
 
 // ------------------------------------------------------
 
@@ -85,7 +188,6 @@ app.get("/dp/:id", async (req, res) => {
   }
 });
 
-
 // ----------------------------------------------------------
 
 app.post("/find", async (req, res) => {
@@ -102,7 +204,9 @@ app.post("/find", async (req, res) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving image from MongoDB", error });
+    res
+      .status(500)
+      .json({ message: "Error retrieving image from MongoDB", error });
   }
 });
 
